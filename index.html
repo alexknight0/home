@@ -48,6 +48,30 @@
         <span class="desc">Play against AI or online</span>
       </a>
     </nav>
+    <!-- Admin only (Firestore rules enforce it), rarely used, so deliberately low-key. -->
+    <p class="access-row"><button id="access-open" type="button" class="link">Manage access</button></p>
   </main>
+
+  <dialog id="access-dialog">
+    <h2>Manage access</h2>
+    <p class="muted">Who may sign in to the sites that have an allow list. Each site needs its own sign-in once on this device.</p>
+    <p id="access-loading" class="muted">Loading…</p>
+    <ul id="access-sites" class="rows"></ul>
+    <form id="access-form" hidden>
+      <div class="add">
+        <input id="access-email" type="email" placeholder="name@gmail.com" autocomplete="off" autocapitalize="off" required>
+        <button class="primary">Approve</button>
+      </div>
+      <div id="access-checks" class="checks"></div>
+    </form>
+    <p id="access-msg" class="msg"></p>
+    <ul id="access-people" class="rows"></ul>
+    <p id="access-none" class="muted" hidden>No one else approved yet.</p>
+    <div class="dialog-actions">
+      <button id="signout-all" type="button" hidden>Sign out</button>
+      <form method="dialog"><button>Done</button></form>
+    </div>
+  </dialog>
+  <script type="module" src="admin.js"></script>
 </body>
 </html>

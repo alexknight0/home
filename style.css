@@ -63,3 +63,55 @@ main {
 
 .name { font-weight: 600; font-size: 1rem; }
 .desc { color: var(--muted); font-size: 0.82rem; line-height: 1.3; }
+
+[hidden] { display: none !important; }
+
+/* Discreet "Manage access" link (admin only) and its dialog. */
+.access-row { text-align: center; margin-top: 2.5rem; }
+button.link {
+  border: none; background: none; padding: 0.2rem; font: inherit; font-size: 0.8rem;
+  color: var(--muted); text-decoration: underline; cursor: pointer;
+}
+
+dialog {
+  width: min(30rem, 92vw);
+  max-height: 85dvh;
+  border: 1px solid #2c333d;
+  border-radius: 16px;
+  padding: 1rem;
+  background: var(--card);
+  color: var(--text);
+}
+dialog::backdrop { background: rgb(0 0 0 / 0.55); }
+dialog h2 { margin: 0 0 0.3rem; font-size: 1.15rem; }
+.muted { color: var(--muted); font-size: 0.85rem; margin: 0.3rem 0; }
+.msg { font-size: 0.85rem; white-space: pre-line; overflow-wrap: anywhere; margin: 0.5rem 0; }
+.msg:empty { display: none; }
+
+dialog button {
+  font: inherit; font-size: 0.85rem; padding: 0.4rem 0.8rem; border-radius: 8px;
+  border: 1px solid #3a424e; background: transparent; color: inherit; cursor: pointer;
+}
+dialog button.primary { background: #1f6feb; border-color: #1f6feb; color: white; }
+
+.rows { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+.rows li { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0; border-bottom: 1px solid #2c333d; }
+.rows .info { flex: 1; min-width: 0; }
+.rows .name { overflow-wrap: anywhere; }
+.meta { color: var(--muted); font-size: 0.8rem; }
+.error { color: #ff7b72; }
+
+.add { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
+.add input {
+  flex: 1; min-width: 0; font: inherit; padding: 0.45rem 0.6rem;
+  border: 1px solid #3a424e; border-radius: 8px; background: var(--bg); color: inherit;
+}
+.checks { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 0.5rem; font-size: 0.85rem; }
+
+/* Per-person site toggles: filled = approved for that site. */
+.tags { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: flex-end; }
+dialog button.tag { padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.75rem; color: var(--muted); border-style: dashed; }
+dialog button.tag[aria-pressed="true"] { background: #1f3b66; border: 1px solid #1f6feb; color: var(--text); }
+
+.dialog-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.9rem; }
+.dialog-actions form { margin: 0; }

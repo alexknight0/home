@@ -55,7 +55,9 @@ async function loadFirebase() {
   for (const s of SITES) {
     // Named apps, so each project keeps its own sign-in (the sites themselves use "[DEFAULT]").
     const a = fb.initializeApp(s.config, `home-${s.key}`);
-    s.auth = fb.getAuth(a);
+    // localStorage, not Firebase's default IndexedDB: the sites share one origin and so one
+    // sign-in database, and Firebase waits forever if another page blocks opening it.
+    s.auth = fb.initializeAuth(a, { persistence: fb.browserLocalPersistence, popupRedirectResolver: fb.browserPopupRedirectResolver });
     s.ref = fb.doc(fb.getFirestore(a), "config", "access");
     fb.onAuthStateChanged(s.auth, (user) => {
       s.ready = true;

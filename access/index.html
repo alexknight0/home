@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Access</title>
+  <meta name="theme-color" content="#14171c">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../icon.svg">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="sub">
+    <a class="back" href="../" aria-label="Home">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <path d="M3 11.5 12 4l9 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5 10v9h5v-5h4v5h5v-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1>Access</h1>
+  </header>
+  <!-- Admin only: each project's Firestore rules let only Alex read or change config/access. -->
+  <main class="panel">
+    <p class="muted">Who may use each site, and who has a role. Each site needs its own sign-in once on this device.</p>
+    <ul id="access-sites" class="rows"></ul>
+
+    <form id="access-add" hidden>
+      <h2>Add someone</h2>
+      <div class="add">
+        <input id="access-email" type="email" placeholder="name@gmail.com" autocomplete="off" autocapitalize="off" required>
+        <button class="primary">Add</button>
+      </div>
+      <div id="access-checks" class="checks"></div>
+    </form>
+    <p id="access-msg" class="msg"></p>
+
+    <section id="access-people-section" hidden>
+      <h2>People</h2>
+      <p class="muted">Filled = has it. Tap to change.</p>
+      <ul id="access-people" class="rows"></ul>
+      <p id="access-none" class="muted" hidden>No one listed yet.</p>
+    </section>
+
+    <div class="actions">
+      <button id="signout-all" type="button" hidden>Sign out of all</button>
+    </div>
+  </main>
+  <script type="module" src="access.js"></script>
+</body>
+</html>

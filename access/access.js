@@ -121,10 +121,20 @@ function render() {
       ` ${pillText(s, list)}`);
   }));
 
-  const emails = [...new Set(lists.flatMap(({ s, list }) => listed(s, list)))].sort();
+  // You (the admin) are always listed first. Your allow-list pills are locked on: the rules let
+  // the admin in whether or not the email is in the list. Roles are real toggles for you too.
+  const emails = [ADMIN_EMAIL, ...[...new Set(lists.flatMap(({ s, list }) => listed(s, list)))].filter((e) => e !== ADMIN_EMAIL).sort()];
   $("access-people").replaceChildren(...emails.map((email) => el("li", {},
-    el("div", { className: "info" }, el("div", { className: "name", textContent: email === ADMIN_EMAIL ? `${email} (you)` : email })),
+    el("div", { className: "info" },
+      el("div", { className: "name", textContent: email === ADMIN_EMAIL ? `${email} (you)` : email }),
+      email === ADMIN_EMAIL ? el("div", { className: "meta", textContent: "Always allowed on every site (admin). Roles like Developer work as for anyone else." }) : null),
     el("div", { className: "tags" }, ...lists.map(({ s, list }) => {
+      if (email === ADMIN_EMAIL && list.allow) {
+        return el("button", {
+          type: "button", className: "tag locked", textContent: pillText(s, list), disabled: true,
+          title: `You're always allowed on ${s.name} (admin)`, ariaPressed: "true",
+        });
+      }
       const on = listed(s, list).includes(email);
       return el("button", {
         type: "button", className: "tag", textContent: pillText(s, list),
@@ -133,7 +143,7 @@ function render() {
       });
     })))));
   $("access-people-section").hidden = !lists.length;
-  $("access-none").hidden = emails.length > 0;
+  $("access-none").hidden = emails.length > 1;
   $("signout-all").hidden = !SITES.some((s) => s.user);
 }
 

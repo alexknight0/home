@@ -107,5 +107,7 @@ header.sub { display: flex; align-items: center; gap: 0.6rem; }
 .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .panel button.tag { padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.75rem; color: var(--muted); border-style: dashed; }
 .panel button.tag[aria-pressed="true"] { background: #1f3b66; border: 1px solid #1f6feb; color: var(--text); }
+/* Your allow-list pills: always on (admin), not toggles. */
+.panel button.tag.locked { background: #253042; border: 1px solid #3a4a62; color: var(--muted); cursor: default; }
 
 .actions { display: flex; justify-content: flex-end; margin-top: 1.2rem; }

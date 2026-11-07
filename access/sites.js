@@ -63,12 +63,15 @@ export const SITES = [
     name: "One Video",
     url: "../../one-video/",
     note: "Others can watch; only you can change the video.",
-    lists: [{ field: "emails", label: "Can watch", allow: true }],
+    // Shares the Lectures project, so it has its own list in that project's config/access.
+    lists: [{ field: "oneVideo", label: "Can watch", allow: true }],
+    // The site signs in with a named app, not "[DEFAULT]" (that one is the Lectures sign-in).
+    siteApp: "one-video",
     config: {
-      apiKey: "AIzaSyCWkYvty0RjkOdq5xJNuOtAWH9Xa9p5uvE",
-      authDomain: "one-video-37c315.firebaseapp.com",
-      projectId: "one-video-37c315",
-      appId: "1:121219978533:web:4da006f8ec8efa7f1eb6cc",
+      apiKey: "AIzaSyDgEbqEwI9KHnFlBLRJ8RQIgdntISQPty0",
+      authDomain: "lecture-player-d77815.firebaseapp.com",
+      projectId: "lecture-player-d77815",
+      appId: "1:905522641482:web:f737cbe4b19eeead1a04b3",
     },
   },
   {
@@ -95,7 +98,7 @@ export const appName = (s) => `home-${s.key}`;
 // page or on the site itself. Firebase keeps the user in localStorage under
 // firebase:authUser:<apiKey>:<app name> (every site uses browserLocalPersistence).
 export function adminSignedInHere() {
-  return SITES.some((s) => [appName(s), "[DEFAULT]"].some((name) => {
+  return SITES.some((s) => [appName(s), s.siteApp || "[DEFAULT]"].some((name) => {
     try {
       const user = JSON.parse(localStorage.getItem(`firebase:authUser:${s.config.apiKey}:${name}`));
       return user?.email?.toLowerCase() === ADMIN_EMAIL;
